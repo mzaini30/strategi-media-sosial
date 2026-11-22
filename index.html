@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Mesin Konten Asimetris: Strategi 80:20 Media Sosial</title>
+    <style>
+        :root {
+            --bg-color: #FAF8F5;
+            --surface-color: #FFFFFF;
+            --text-color: #1F2328;
+            --muted-color: #57606A;
+            --border-color: #E5E0D8;
+            --accent-color: #D9531E;
+            --accent-bg: #FFF5EE;
+            --callout-border: #D9531E;
+            --font-size-base: 20px;
+            --line-height-base: 1.8;
+            --font-family-reader: 'Charter', 'Georgia', 'Cambria', serif;
+            --font-family-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --content-max-width: 780px;
+        }
+
+        [data-theme="sepia"] {
+            --bg-color: #F4ECD8;
+            --surface-color: #FCF7ED;
+            --text-color: #382E24;
+            --muted-color: #6D6054;
+            --border-color: #E2D7C3;
+            --accent-color: #8C4726;
+            --accent-bg: #EFE4CC;
+            --callout-border: #8C4726;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #161B22;
+            --surface-color: #0D1117;
+            --text-color: #E6EDF3;
+            --muted-color: #8B949E;
+            --border-color: #30363D;
+            --accent-color: #F78166;
+            --accent-bg: #21262D;
+            --callout-border: #F78166;
+        }
+
+        [data-theme="oled"] {
+            --bg-color: #000000;
+            --surface-color: #080808;
+            --text-color: #D4D4D4;
+            --muted-color: #737373;
+            --border-color: #262626;
+            --accent-color: #FF7B72;
+            --accent-bg: #121212;
+            --callout-border: #FF7B72;
+        }
+
+        [data-font="sans"] {
+            --font-family-reader: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family-reader);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            transition: background 0.3s ease, color 0.3s ease;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header & Toolbar iPad */
+        .reader-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            font-family: var(--font-family-ui);
+        }
+
+        .progress-bar-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: transparent;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-color);
+            transition: width 0.1s ease;
+        }
+
+        .header-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover, .btn-icon:active {
+            background: var(--accent-bg);
+            border-color: var(--accent-color);
+        }
+
+        .header-book-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 320px;
+        }
+
+        .controls-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Sidebar Drawer */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 200;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+
+        .toc-drawer {
+            position: fixed;
+            top: 0;
+            left: -380px;
+            width: 340px;
+            height: 100%;
+            background: var(--surface-color);
+            z-index: 210;
+            transition: left 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+            padding: 24px 20px;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
+            font-family: var(--font-family-ui);
+        }
+
+        .toc-drawer.open {
+            left: 0;
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .drawer-title {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 14px;
+        }
+
+        .toc-list a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 15px;
+            line-height: 1.4;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+
+        .toc-list a:hover {
+            background: var(--accent-bg);
+            color: var(--accent-color);
+        }
+
+        /* Main Container iPad */
+        .reader-container {
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+            padding: 40px 24px 100px 24px;
+        }
+
+        /* Book Title Hero */
+        .book-hero {
+            text-align: center;
+            padding: 40px 10px 50px 10px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .book-badge {
+            display: inline-block;
+            font-family: var(--font-family-ui);
+            background: var(--accent-bg);
+            color: var(--accent-color);
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .book-main-title {
+            font-size: 2.2em;
+            line-height: 1.25;
+            font-weight: 900;
+            margin-bottom: 14px;
+            color: var(--text-color);
+        }
+
+        .book-sub-title {
+            font-size: 1.15em;
+            color: var(--muted-color);
+            max-width: 620px;
+            margin: 0 auto 20px auto;
+            font-style: italic;
+        }
+
+        .ipad-tip-box {
+            background: var(--accent-bg);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-family: var(--font-family-ui);
+            font-size: 14px;
+            color: var(--text-color);
+            max-width: 580px;
+            margin: 20px auto 0 auto;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Chapter Cards */
+        .chapter-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 44px 36px;
+            margin-bottom: 50px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+        }
+
+        .chapter-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .chapter-tag {
+            font-family: var(--font-family-ui);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        .chapter-title {
+            font-size: 1.7em;
+            line-height: 1.3;
+            margin: 8px 0;
+            font-weight: 800;
+        }
+
+        .chapter-subtitle {
+            font-size: 1.05em;
+            color: var(--muted-color);
+            font-style: italic;
+        }
+
+        .chapter-body p {
+            margin-bottom: 22px;
+            text-align: justify;
+        }
+
+        .ch-h2 {
+            font-size: 1.35em;
+            margin: 36px 0 16px 0;
+            font-weight: 700;
+            color: var(--text-color);
+            border-left: 4px solid var(--accent-color);
+            padding-left: 12px;
+        }
+
+        .ch-h3 {
+            font-size: 1.15em;
+            margin: 24px 0 12px 0;
+            font-weight: 700;
+        }
+
+        .callout {
+            border-left: 4px solid var(--callout-border);
+            background: var(--accent-bg);
+            padding: 16px 20px;
+            margin: 26px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: var(--text-color);
+        }
+
+        .list-item, .ordered-item {
+            margin-left: 28px;
+            margin-bottom: 12px;
+        }
+
+        .divider {
+            border: none;
+            height: 1px;
+            background: var(--border-color);
+            margin: 34px 0;
+        }
+
+        .code-block {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: "SF Mono", Consolas, Monaco, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        /* Table Responsive */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 26px 0;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .reader-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-family-ui);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .reader-table th, .reader-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .reader-table th {
+            background: var(--accent-bg);
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .reader-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Quick Floating Actions on iPad */
+        .ipad-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-family-ui);
+        }
+
+        @media (max-width: 768px) {
+            .chapter-card {
+                padding: 28px 20px;
+            }
+            .header-book-title {
+                display: none;
+            }
+            .book-main-title {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body data-theme="warm" data-font="serif">
+
+    <!-- Header & Progress -->
+    <header class="reader-header">
+        <div class="progress-bar-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <div class="header-title-wrapper">
+            <button class="btn-icon" onclick="openNav()" title="Daftar Isi">
+                <span>☰</span> <span>Daftar Isi</span>
+            </button>
+            <span class="header-book-title">Aturan 80:20 Media Sosial</span>
+        </div>
+
+        <div class="controls-group">
+            <button class="btn-icon" onclick="toggleTheme()" id="themeBtn" title="Ganti Tema">☀️ Mode</button>
+            <button class="btn-icon" onclick="toggleFontFamily()" id="fontBtn" title="Ganti Gaya Font">Aa Font</button>
+            <button class="btn-icon" onclick="adjustFontSize(-2)" title="Perkecil Font">A-</button>
+            <button class="btn-icon" onclick="adjustFontSize(2)" title="Perbesar Font">A+</button>
+        </div>
+    </header>
+
+    <!-- Drawer Daftar Isi -->
+    <div id="drawerOverlay" class="drawer-overlay" onclick="closeNav()"></div>
+    <aside id="tocDrawer" class="toc-drawer">
+        <div class="drawer-header">
+            <div class="drawer-title">Daftar Bab Buku</div>
+            <button class="btn-icon" onclick="closeNav()">✕</button>
+        </div>
+        <ul class="toc-list">
+            <li><a href="#bab-1" onclick="closeNav()">Bab 1: Paradoks Kreator — Mengapa Konsistensi Saja Tidak Cukup</a></li><li><a href="#bab-2" onclick="closeNav()">Bab 2: Prinsip 80:20 — Eksploitasi Format Juara vs Eksplorasi Asimetris</a></li><li><a href="#bab-3" onclick="closeNav()">Bab 3: Fondasi 80% — Memeras Format Pemenang (Studi Kasus: Diskusi & Bedah Website)</a></li><li><a href="#bab-4" onclick="closeNav()">Bab 4: Laboratorium 20% — Monetisasi Jasa, Portofolio & Eksperimen Liar</a></li><li><a href="#bab-5" onclick="closeNav()">Bab 5: Siklus Promosi — Mengubah Eksperimen 20% Menjadi Format Juara Baru</a></li><li><a href="#bab-6" onclick="closeNav()">Bab 6: Cetak Biru Eksekusi 100 Konten Pertama</a></li><li><a href="#bab-7" onclick="closeNav()">Bab 7: 25 Aksioma & Hukum Besi Media Sosial</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Container -->
+    <main class="reader-container">
+        
+        <!-- Hero Section -->
+        <section class="book-hero">
+            <span class="book-badge">Edisi Pembaca iPad & Tablet</span>
+            <h1 class="book-main-title">ATURAN 80:20 MEDIA SOSIAL</h1>
+            <p class="book-sub-title">Mesin Konten Asimetris: 80% Eksploitasi Format Pemenang, 20% Eksperimen & Penjualan Jasa.</p>
+            
+            <div class="ipad-tip-box">
+                <span style="font-size: 24px;">💡</span>
+                <div>
+                    <strong>Tips Membaca di iPad:</strong> Gunakan tombol <strong>A+ / A-</strong> di atas jika ingin tulisan lebih besar. Klik <strong>Mode</strong> untuk berganti ke tampilan Kertas, Sepia, atau Gelap.
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter Contents -->
+        
+        <section id="bab-1" class="chapter-card">
+            <header class="chapter-header">
+                <span class="chapter-tag">BAGIAN BUKU</span>
+                <h1 class="chapter-title">Bab 1: Paradoks Kreator — Mengapa Konsistensi Saja Tidak Cukup</h1>
+                <p class="chapter-subtitle">Menghentikan Kebiasaan Membunuh Format Konten yang Baru Saja Berhasil</p>
+            </header>
+            <div class="chapter-body">
+                <h2 class='ch-h2'>Realitas Pahit di Balik Tombol 'Posting'</h2><p>Sebagian besar kreator dan pemilik bisnis digital beroperasi di bawah ilusi yang berbahaya: *"Jika saya memposting konten setiap hari secara konsisten, akun saya pada akhirnya pasti akan meledak."*</p><p>Kenyataannya tidak demikian.</p><p>Konsisten memposting konten yang tidak diinginkan oleh pasar hanya akan menghasilkan satu hal: Anda menjadi orang yang gagal dengan sangat disiplin.</p><p>Pasar media sosial tidak memberikan kompensasi kepada keringat, durasi rekaman, atau seberapa keras Anda berjuang. Pasar hanya memedulikan satu hal sederhana: **apakah konten ini memberikan nilai spesifik yang membuat orang bersedia menukarkan waktu dan perhatian mereka?**</p><hr class='divider'/><h2 class='ch-h2'>Penyakit 'Creative ADD': Membunuh Format Pemenang</h2><p>Amati pola yang berulang pada 95% kreator pemula:</p><li class='ordered-item'>Mereka mencoba 10 topik yang berbeda secara acak: tips produktivitas, kutipan motivasi, cerita keseharian, tutorial teknis, dan bedah website.</li><li class='ordered-item'>Tiba-tiba, video nomor 5 tentang **"Bedah Website"** meledak dan mendapatkan 50.000 penayangan serta ratusan komentar.</li><li class='ordered-item'>Alih-alih membuat 50 video bedah website berikutnya, keesokan harinya kreator tersebut memposting video tentang: *"Rutinitas pagi saya minum kopi di kafe."*</li><p>Hasilnya? Video kopi tersebut hanya ditonton oleh 200 orang.</p><p>Ketika ditanya mengapa mereka tidak melanjutkan format bedah website, jawaban yang paling umum adalah:</p><blockquote class='callout'>*"Saya takut audiens saya bosan kalau saya bahas website terus."*</blockquote><p>Ini adalah kesalahan berpikir yang fatal.</p><p>Audiens Anda tidak bosan. **Anda yang bosan.**</p><p>Audiens yang baru saja mengikuti akun Anda setelah menonton video bedah website mengharapkan lebih banyak bedah website. Mereka bahkan belum mengenal nama Anda dengan baik. Mereka datang untuk format dan nilai spesifik tersebut.</p><p>Saat Anda mengganti topik secara acak, Anda memutuskan rantai momentum yang baru saja dibangun oleh algoritma.</p><hr class='divider'/><h2 class='ch-h2'>Media Sebagai Pengungkit Tanpa Izin</h2><p>Dalam ekonomi digital modern, media adalah salah satu bentuk pengungkit (*leverage*) terbesar yang bisa diakses oleh siapa saja tanpa perlu meminta izin kepada siapa pun.</p><li class='list-item'>Anda tidak perlu mempekerjakan ratusan staf untuk berbicara kepada 10.000 calon pembeli.</li><li class='list-item'>Anda tidak perlu menyewa papan reklame di tengah kota seharga ratusan juta rupiah.</li><li class='list-item'>Sebuah video atau tulisan yang tepat diunggah ke internet dapat bekerja untuk Anda selama 24 jam sehari, 7 hari seminggu, menjangkau orang-orang yang membutuhkan keahlian Anda saat Anda sedang tidur.</li><p>Namun, pengungkit ini hanya bekerja jika Anda memberikan **sinyal yang konsisten dan jelas** kepada dua pihak:</p><li class='ordered-item'>**Algoritma rekomendasi**, agar platform memahami kepada siapa konten Anda harus disalurkan.</li><li class='ordered-item'>**Penonton**, agar mereka memahami dalam kategori apa mereka harus mengingat nama dan keahlian Anda.</li><p>Solusinya bukan berhenti bereksperimen, melainkan mengelola eksperimen dengan batas matematika yang ketat. Inilah fondasi dari **Strategi 80:20 Media Sosial**.</p>
+            </div>
+        </section>
+        
+        <section id="bab-2" class="chapter-card">
+            <header class="chapter-header">
+                <span class="chapter-tag">BAGIAN BUKU</span>
+                <h1 class="chapter-title">Bab 2: Prinsip 80:20 — Eksploitasi Format Juara vs Eksplorasi Asimetris</h1>
+                <p class="chapter-subtitle">Arsitektur Distribusi Konten yang Menggabungkan Skala dan Inovasi</p>
+            </header>
+            <div class="chapter-body">
+                <h2 class='ch-h2'>Algoritma Adalah Mesin Pengenal Pola</h2><p>Setiap platform media sosial modern—baik itu TikTok, Instagram, YouTube Shorts, LinkedIn, maupun X—bekerja dengan prinsip yang sama: **mencocokkan konten yang tepat dengan penonton yang tepat demi mempertahankan retensi pengguna.**</p><p>Algoritma bukan kurator seni yang mencari keberagaman estetika Anda. Algoritma adalah sistem pemrosesan data statistik:</p><li class='ordered-item'>Ketika video Anda tentang topik tertentu mencatatkan waktu tonton (*watch time*) yang tinggi dan interaksi aktif, sistem menandai akun Anda sebagai penyedia konten berkualitas dalam topik tersebut.</li><li class='ordered-item'>Jika konten berikutnya menyajikan topik dan format yang serupa, sistem memiliki tingkat kepastian (*confidence score*) yang tinggi untuk kembali mendistribusikannya ke kelompok penonton yang serupa.</li><li class='ordered-item'>Sebaliknya, jika Anda melompat dari topik desain website ke tips investasi saham lalu ke vlog kuliner, sistem kebingungan menentukan target audiens Anda, dan penyebaran konten Anda terhenti.</li><hr class='divider'/><h2 class='ch-h2'>Mengapa Harus 80% vs 20%?</h2><p>Banyak praktisi terjebak di salah satu dari dua kutub ekstrem:</p><li class='list-item'>**Kutub Kebosanan Total (100% Format Sama Tanpa Variasi):** Akun menjadi kaku, kreator jenuh, tidak ada ruang untuk menjual jasa, dan jika tren format tersebut meredup, akun ikut mati.</li><li class='list-item'>**Kutub Kekacauan Kreatif (100% Eksperimen Acak):** Akun tidak pernah menemukan daya dorong karena tidak ada satu format pun yang didalami hingga matang.</li><p>Aturan 80:20 memecahkan kebuntuan ini dengan membagi beban kerja ke dalam dua pilar yang saling mendukung:</p><div class='table-responsive'><table class='reader-table'><thead><tr><th>Komponen</th><th>Porsi</th><th>Peran Utama</th><th>Fokus Eksekusi</th></tr></thead><tbody><tr><td>**Winning Engine**</td><td>**80%**</td><td>Eksploitasi Format Pemenang</td><td>Menghasilkan jangkauan luas (*reach*), pengikut baru, dan domain authority.</td></tr><tr><td>**Asymmetric Sandbox**</td><td>**20%**</td><td>Eksplorasi & Monetisasi</td><td>Menghasilkan penjualan jasa, membangun kedekatan emosional, dan riset format baru.</td></tr></tbody></table></div><pre class='code-block'><code>               KOMPOSISI KONTEN (100 KONTEN)
+  ┌─────────────────────────────────────────────────┬───────────┐
+  │                                                 │           │
+  │           80% FORMAT PEMENANG TERBUKTI          │  20% LAB  │
+  │      (Skala, Pengikut Baru, Domain Authority)   │ (Jual/Exp)│
+  │                                                 │           │
+  └─────────────────────────────────────────────────┴───────────┘</code></pre><hr class='divider'/><h2 class='ch-h2'>Asimetri Risiko dan Peluang</h2><p>Mengapa porsi eksperimen dibatasi hanya 20%?</p><p>Karena ini menciptakan struktur risiko asimetris:</p><li class='list-item'>**Kerugian Terbatas (*Capped Downside*):** Jika sebuah konten eksperimen atau video penawaran jasa gagal mendapatkan penayangan tinggi, performa akun Anda secara keseluruhan tetap aman karena 80% konten lainnya terus memompa jangkauan dan pengikut baru.</li><li class='list-item'>**Peluang Tak Terbatas (*Unlimited Upside*):** Jika satu eksperimen dari porsi 20% ternyata berhasil meledak melebihi format utama, Anda baru saja menemukan formula juara baru yang siap dipromosikan ke pilar 80% di masa depan.</li><p>Ini adalah cara kerja investor modal ventura yang diterapkan ke dalam jadwal publikasi media sosial.</p>
+            </div>
+        </section>
+        
+        <section id="bab-3" class="chapter-card">
+            <header class="chapter-header">
+                <span class="chapter-tag">BAGIAN BUKU</span>
+                <h1 class="chapter-title">Bab 3: Fondasi 80% — Memeras Format Pemenang (Studi Kasus: Diskusi & Bedah Website)</h1>
+                <p class="chapter-subtitle">Cara Memproduksi 80 Konten Berkualitas Tinggi Tanpa Pernah Kehabisan Ide</p>
+            </header>
+            <div class="chapter-body">
+                <h2 class='ch-h2'>Anatomi Format Juara</h2><p>Bayangkan Anda menemukan bahwa video bertema **"Diskusi & Bedah Website"** adalah format yang berhasil mencuri perhatian audiens. Video tersebut memiliki retensi tinggi, komentar berisi diskusi teknis, dan mendatangkan banyak pengikut baru.</p><p>Pertanyaannya: *Bagaimana cara membuat 80 konten berikutnya yang semuanya membahas bedah website tanpa terdengar mengulang hal yang sama persis?*</p><p>Jawabannya adalah **Metode Variasi Variabel Tunggal**:</p><blockquote class='callout'>**Pertahankan hook dan struktur kerangka kerja tetap konsisten, ubah hanya subjek atau sudut pandang bedahannya.**</blockquote><p>Mari kita pecah 80 konten tersebut menjadi 4 kelompok taktis, masing-masing berisi 20 konten.</p><hr class='divider'/><h2 class='ch-h2'>4 Kelompok Taktis (20 Konten per Kelompok)</h2><h3 class='ch-h3'>1. Authority Piggybacking: Bedah Website Brand / Figur Terkenal (20 Konten)</h3><p>Manfaatkan rasa ingin tahu audiens terhadap nama-nama besar yang sudah mereka kenal.</p><li class='list-item'>*Contoh 1-5:* Bedah psikologi tombol beli pada website Apple, Tesla, Nike, Tokopedia, dan Airbnb.</li><li class='list-item'>*Contoh 6-10:* Analisis alasan mengapa landing page startup terkemuka terlihat sangat minimalis tapi menghasilkan konversi tinggi.</li><li class='list-item'>*Contoh 11-20:* Bedah halaman pribadi figur publik dan kreator internasional teratas.</li><li class='list-item'>**Nilai untuk Audiens:** Mempelajari strategi raksasa industri yang bisa diterapkan ke skala bisnis mereka sendiri.</li><h3 class='ch-h3'>2. Fatal Mistakes & Solusi Praktis (20 Konten)</h3><p>Fokus pada rasa takut kehilangan uang (*loss aversion*), yaitu alasan utama mengapa pemilik bisnis mencari solusi website.</p><li class='list-item'>*Contoh 21-25:* "3 Kesalahan fatal pada website UMKM yang membuat biaya iklan Anda terbuang percuma."</li><li class='list-item'>*Contoh 26-30:* "Mengapa loading website lebih dari 3 detik membunuh 40% calon pembeli Anda (dan cara memperbaikinya hari ini)."</li><li class='list-item'>*Contoh 31-40:* Bedah formulir checkout yang terlalu panjang, navigasi mobile yang membingungkan, dan tipografi yang tidak terbaca.</li><li class='list-item'>**Nilai untuk Audiens:** Solusi cepat yang bisa langsung mereka perbaiki dalam hitungan menit.</li><h3 class='ch-h3'>3. Micro-Element Teardown: Analisis Komponen Spesifik (20 Konten)</h3><p>Daripada membedah seluruh website, fokuskan perhatian pada satu elemen mikro secara mendalam.</p><li class='list-item'>*Contoh 41-50:* Analisis headline di atas lipatan layar (*above the fold*). Mengapa kalimat pertama menentukan 80% keputusan pengunjung untuk tetap tinggal atau pergi.</li><li class='list-item'>*Contoh 51-60:* Analisis warna tombol CTA, posisi testimoni, perbandingan harga (*pricing table*), dan tata letak footer.</li><li class='list-item'>**Nilai untuk Audiens:** Wawasan teknis mendalam yang membuktikan bahwa Anda adalah seorang pakar di bidang detail.</li><h3 class='ch-h3'>4. Live Before & After Redesign (20 Konten)</h3><p>Tunjukkan bukti keahlian nyata dalam bentuk transformasi visual langsung.</p><li class='list-item'>*Contoh 61-70:* Mengambil website bisnis lokal yang berantakan, lalu mendesain ulang halaman depannya secara live dalam video 60 detik.</li><li class='list-item'>*Contoh 71-80:* Transformasi landing page jasa konsultasi dari tampilan kaku menjadi tampilan modern berorientasi konversi tinggi.</li><li class='list-item'>**Nilai untuk Audiens:** Bukti visual tanpa bantahan (*irrefutable proof*) bahwa Anda benar-benar mampu mengeksekusi apa yang Anda bicarakan.</li><hr class='divider'/><h2 class='ch-h2'>Template Hook Berdaya Pikat Tinggi untuk Format 80%</h2><p>Gunakan struktur pembuka yang tajam pada 3 detik pertama:</p><li class='ordered-item'>**The Negative Anchor:**</li><blockquote class='callout'>*"Jika website Anda masih meletakkan tombol ini di bagian atas, Anda sedang membuang 50% calon pembeli setiap hari. Mari kita bedah alasannya."*</blockquote><li class='ordered-item'>**The Contrast Teardown:**</li><blockquote class='callout'>*"Website seharga 100 juta ini melakukan satu kesalahan konyol yang bahkan tidak dilakukan oleh blog gratisan. Lihat bagian ini."*</blockquote><li class='ordered-item'>**The Data-Driven Mystery:**</li><blockquote class='callout'>*"Website ini berhasil menaikkan penjualan 35% hanya dengan mengubah satu kalimat pada halaman utama. Ini bedahannya."*</blockquote><p>Dengan formula ini, 80 konten dapat diproduksi secara terstruktur tanpa perlu menebak-nebak apa yang harus dibahas setiap pagi.</p>
+            </div>
+        </section>
+        
+        <section id="bab-4" class="chapter-card">
+            <header class="chapter-header">
+                <span class="chapter-tag">BAGIAN BUKU</span>
+                <h1 class="chapter-title">Bab 4: Laboratorium 20% — Monetisasi Jasa, Portofolio & Eksperimen Liar</h1>
+                <p class="chapter-subtitle">Mengubah Penonton Menjadi Pembeli dan Menemukan Terobosan Format Berikutnya</p>
+            </header>
+            <div class="chapter-body">
+                <h2 class='ch-h2'>Mengapa 80% Saja Bisa Membunuh Akun Anda?</h2><p>Jika Anda hanya memposting 100% video bedah website selamanya tanpa pernah melakukan hal lain, dua masalah besar akan muncul:</p><li class='ordered-item'>**Audiens melihat Anda sebagai ensiklopedia gratis, bukan sebagai penyedia jasa profesional yang bisa mereka sewa.**</li><li class='ordered-item'>**Anda tidak pernah tahu apakah ada format lain yang berpotensi menghasilkan dampak 10 kali lebih besar bagi bisnis Anda.**</li><p>Porsi 20% adalah ruang perlindungan dan pertumbuhan strategis akun Anda. Dalam siklus 100 konten, 20 konten ini didistribusikan ke dalam 3 fungsi krusial:</p><pre class='code-block'><code>                  PEMBAGIAN PORSI 20% (DARI 100 KONTEN)
+  ┌────────────────────────┬────────────────────────┬──────────────────────┐
+  │   8 KONTEN MONETISASI  │     6 KONTEN VLOG      │  6 KONTEN EKSPERIMEN │
+  │   Penawaran Jasa &     │   Personal Brand &     │   Format Liar &      │
+  │   Studi Kasus Klien    │   Filosofi Kerja       │   Uji Sudut Pandang  │
+  └────────────────────────┴────────────────────────┴──────────────────────┘</code></pre><hr class='divider'/><h2 class='ch-h2'>1. Monetisasi Jasa & Studi Kasus (8 Konten)</h2><p>Banyak kreator merasa bersalah atau malu saat harus menjual jasa mereka. Mereka merasa penonton akan marah jika disuguhi konten promosi.</p><p>Penonton hanya membenci promosi yang buruk: promosi yang memohon-mohon atau promosi yang tidak menawarkan nilai.</p><p>Cara terbaik menjual jasa di media sosial adalah **menjual melalui bukti hasil kerja (*results-based selling*)**:</p><h3 class='ch-h3'>Formula Konten Penawaran Jasa:</h3><li class='ordered-item'>**Masalah Nyata Klien:** Ceritakan klien yang datang dengan masalah website yang sepi pembeli meski traffic iklannya tinggi.</li><li class='ordered-item'>**Diagnosa Masalah:** Tunjukkan apa yang salah pada website lama mereka (menghubungkannya dengan format 80% yang biasa Anda bahas).</li><li class='ordered-item'>**Solusi & Hasil:** Tunjukkan perubahan desain yang Anda lakukan dan kenaikan metrik bisnis yang dicapai klien.</li><li class='ordered-item'>**Call to Action (CTA) Jelas:** *"Jika Anda pemilik bisnis dengan traffic di atas 1.000 pengunjung per bulan dan ingin website Anda dikonversi lebih tinggi, kirim pesan 'AUDIT' ke DM saya untuk mendapatkan sesi review gratis selama 15 menit."*</li><p>Konten seperti ini tidak terasa seperti iklan yang mengganggu; konten ini terasa seperti pelajaran berharga yang diakhiri dengan solusi bagi mereka yang membutuhkan.</p><hr class='divider'/><h2 class='ch-h2'>2. Personal Brand, Vlog & Filosofi Kerja (6 Konten)</h2><p>Orang bertransaksi dengan manusia, bukan dengan logo perusahaan atau akun tanpa wajah.</p><p>Gunakan 6 konten ini untuk membagikan:</p><li class='list-item'>**Di Balik Layar Kerja:** Bagaimana setup meja kerja Anda, software yang Anda gunakan, dan alur kerja harian Anda dalam menyelesaikan proyek klien.</li><li class='list-item'>**Pelajaran dari Kegagalan:** Cerita tentang kesalahan terbesar yang pernah Anda buat di masa lalu dan apa yang Anda pelajari darinya.</li><li class='list-item'>**Prinsip Kerja:** Mengapa Anda menolak jenis proyek tertentu demi menjaga kualitas hasil kerja.</li><p>Konten ini membangun kepercayaan emosional mendalam (*deep trust*) yang tidak bisa ditiru oleh kompetitor.</p><hr class='divider'/><h2 class='ch-h2'>3. Eksperimen Format Liar (6 Konten)</h2><p>Gunakan 6 konten ini untuk mencoba format yang sama sekali baru:</p><li class='list-item'>Mencoba format podcast monolog 3 menit dengan mikrofon klasik.</li><li class='list-item'>Membuat konten karosel infografis visual beresolusi tinggi.</li><li class='list-item'>Wawancara singkat dengan pemilik bisnis offline tentang tantangan digital mereka.</li><p>Sebagian besar eksperimen ini mungkin menghasilkan performa biasa saja. Tetapi jika salah satunya mencatatkan lonjakan metrik di luar dugaan, Anda baru saja menemukan calon format juara berikutnya.</p>
+            </div>
+        </section>
+        
+        <section id="bab-5" class="chapter-card">
+            <header class="chapter-header">
+                <span class="chapter-tag">BAGIAN BUKU</span>
+                <h1 class="chapter-title">Bab 5: Siklus Promosi — Mengubah Eksperimen 20% Menjadi Format Juara Baru</h1>
+                <p class="chapter-subtitle">Membangun Mesin Pertumbuhan Konten yang Tidak Pernah Usang</p>
+            </header>
+            <div class="chapter-body">
+                <h2 class='ch-h2'>Kurva Kejenuhan Konten (*Content Decay Curve*)</h2><p>Tidak ada format konten yang bisa bertahan selamanya dengan performa puncak.</p><p>Bahkan format bedah website terbaik pada akhirnya akan mengalami penurunan efektivitas setelah 6 hingga 12 bulan. Penonton lama sudah terbiasa dengan gaya penyampaian Anda, dan algoritma mulai menuntut variasi baru untuk mempertahankan durasi tonton pengguna.</p><p>Kreator amatir panik ketika format andalan mereka mulai melambat. Mereka merasa algoritma sedang menghukum mereka.</p><p>Kreator profesional menyikapi ini dengan tenang karena mereka telah menjalankan porsi 20% secara konsisten sejak hari pertama.</p><hr class='divider'/><h2 class='ch-h2'>Protokol Promosi Format Konten</h2><p>Kapan sebuah konten dari laboratorium 20% berhak dipromosikan menjadi pilar 80% yang baru?</p><p>Gunakan checklist metrik evaluasi objektif berikut:</p><li class='ordered-item'>**Metrik Retensi:** Apakah video eksperimen tersebut memiliki rasio penyelesaian (*completion rate*) di atas 60% pada 30 detik pertama?</li><li class='ordered-item'>**Metrik Pembagian (*Share Ratio*):** Apakah rasio pembagian konten terhadap penayangan mencapai minimal 2-3%? (Tanda bahwa konten tersebut memiliki nilai sosial tinggi).</li><li class='ordered-item'>**Pengikut Baru per Penayangan:** Apakah eksperimen tersebut menghasilkan laju konversi pengikut baru yang setara atau lebih tinggi dibandingkan format 80% yang sedang berjalan?</li><pre class='code-block'><code>                        FLYWHEEL REGENERASI KONTEN
+                               ┌───────────────┐
+                               │  Jalankan 80% │
+                               │ Format Juara  │
+                               └───────┬───────┘
+                                       │ (Mulai Jenuh / Plateau)
+                                       ▼
+    ┌─────────────────┐        ┌───────────────┐
+    │ Promosikan Jadi │ ◄──────┤  Evaluasi 20% │
+    │ 80% Format Baru │ (Lolos)│  Eksperimen   │
+    └─────────────────┘        └───────────────┘</code></pre><hr class='divider'/><h2 class='ch-h2'>Contoh Transisi Mulus</h2><p>Katakanlah dari 6 eksperimen liar di porsi 20%, Anda mencoba format: **"Wawancara Pemilik Bisnis & Bedah Finansial Website Mereka."**</p><p>Format ini ternyata mendapatkan antusiasme luar biasa. Banyak pemilik bisnis lain yang berkomentar ingin diwawancarai.</p><p>Langkah strategis Anda pada siklus 100 konten berikutnya:</p><li class='list-item'>**Format 80% Baru:** Wawancara Pemilik Bisnis & Bedah Finansial Website (kini mengambil porsi utama).</li><li class='list-item'>**Format 20% Baru:** Bedah website versi cepat (yang sebelumnya 80%), penawaran jasa, dan vlog kehidupan.</li><p>Dengan cara ini, akun Anda berevolusi secara organik mengikuti data pasar riil, bukan berdasarkan tebakan emosional.</p>
+            </div>
+        </section>
+        
+        <section id="bab-6" class="chapter-card">
+            <header class="chapter-header">
+                <span class="chapter-tag">BAGIAN BUKU</span>
+                <h1 class="chapter-title">Bab 6: Cetak Biru Eksekusi 100 Konten Pertama</h1>
+                <p class="chapter-subtitle">Jadwal Mingguan, Sistem Batching, dan Alur Kerja Tanpa Burnout</p>
+            </header>
+            <div class="chapter-body">
+                <h2 class='ch-h2'>Jadwal Distribusi Mingguan Berbasis Rasio 4:1</h2><p>Untuk mengeksekusi rasio 80:20 dalam kehidupan sehari-hari, cara paling praktis adalah membaginya ke dalam siklus mingguan dengan pola **4 Konten Pilar : 1 Konten Eksperimen/Monetisasi**.</p><p>Jika Anda memposting 5 konten per minggu:</p><div class='table-responsive'><table class='reader-table'><thead><tr><th>Hari</th><th>Kategori Konten</th><th>Tipe Konten</th><th>Tujuan Strategis</th></tr></thead><tbody><tr><td>**Senin**</td><td>80% Pilar Juara</td><td>Bedah Website Brand Terkenal</td><td>Menarik traffic baru di awal pekan.</td></tr><tr><td>**Selasa**</td><td>80% Pilar Juara</td><td>3 Kesalahan Fatal Website UMKM</td><td>Membangun kredibilitas dan edukasi teknis.</td></tr><tr><td>**Rabu**</td><td>80% Pilar Juara</td><td>Analisis Mikro: Headline Penjual</td><td>Memperdalam otoritas bidang spesifik.</td></tr><tr><td>**Kamis**</td><td>80% Pilar Juara</td><td>Live Redesign Before & After</td><td>Bukti visual keahlian praktis.</td></tr><tr><td>**Jumat**</td><td>20% Eksperimen / Jual</td><td>Studi Kasus Klien & Penawaran Jasa</td><td>Mengonversi penonton menjadi inquiry/klien.</td></tr><tr><td>**Sabtu**</td><td>20% Personal / Lab</td><td>Vlog Di Balik Layar / Format Baru</td><td>Memperkuat hubungan emosional personal.</td></tr><tr><td>**Minggu**</td><td>Evaluasi & Istirahat</td><td>Analisis Data & Review Metrik</td><td>Meninjau performa dan menyiapkan materi pekan depan.</td></tr></tbody></table></div><hr class='divider'/><h2 class='ch-h2'>Sistem Produksi Batch (Satu Sesi untuk Satu Pekan)</h2><p>Jangan pernah bangun di pagi hari lalu bertanya: *"Hari ini saya mau bikin konten apa ya?"*</p><p>Itu adalah resep paling pasti untuk mengalami kelelahan mental (*decision fatigue*) dan akhirnya berhenti memposting.</p><p>Terapkan alur kerja batching:</p><li class='ordered-item'>**Hari Riset & Skrip (2 Jam):**</li><li class='list-item'>Buka 10 website target.</li><li class='list-item'>Catat 3 poin penting per website menggunakan template hook yang sudah terbukti.</li><li class='list-item'>Buat kerangka skrip poin-poin sederhana.</li><li class='ordered-item'>**Hari Rekam Layar & Kamera (2 Jam):**</li><li class='list-item'>Rekam seluruh 4 video bedah website secara berurutan dalam satu kali duduk.</li><li class='list-item'>Rekam 1 video penawaran jasa/studi kasus.</li><li class='ordered-item'>**Penyuntingan & Penjadwalan (2 Jam):**</li><li class='list-item'>Tambahkan teks penjelas (*captions*), sorotan visual, dan potongan layar penting.</li><li class='list-item'>Masukkan seluruh materi ke dalam sistem penjadwalan otomatis platform.</li><p>Dengan 6 jam kerja terfokus per minggu, kebutuhan konten Anda selama satu pekan penuh sudah selesai dieksekusi dengan standar kualitas yang konsisten.</p>
+            </div>
+        </section>
+        
+        <section id="bab-7" class="chapter-card">
+            <header class="chapter-header">
+                <span class="chapter-tag">BAGIAN BUKU</span>
+                <h1 class="chapter-title">Bab 7: 25 Aksioma & Hukum Besi Media Sosial</h1>
+                <p class="chapter-subtitle">Prinsip-Prinsip Pokok Pengungkit Digital untuk Dibaca Berulang Kali</p>
+            </header>
+            <div class="chapter-body">
+                <h2 class='ch-h2'>Kumpulan Prinsip Aksiomatik Pertumbuhan Digital</h2><p>Simpan halaman ini. Buka kembali saat Anda merasa kehilangan arah atau tergoda untuk berhenti memposting format yang sedang bekerja.</p><li class='ordered-item'>**Pasar tidak berhutang apa pun pada usaha Anda.** Pasar hanya merespons nilai nyata yang relevan bagi mereka.</li><li class='ordered-item'>**Kebosanan kreator adalah pembunuh momentum nomor satu.** Jangan membunuh format yang disukai penonton hanya karena Anda bosan membuatnya.</li><li class='ordered-item'>**Media adalah mesin pengganda tanpa izin.** Satu konten berkualitas dapat berbicara kepada ribuan orang sekaligus saat Anda tertidur lelap.</li><li class='ordered-item'>**Algoritma adalah cermin dari penonton.** Jika konten Anda tidak didistribusikan, jangan salahkan platform; perbaiki hook dan nilai konten Anda.</li><li class='ordered-item'>**Konsistensi tanpa arah hanyalah kesia-siaan yang disiplin.** Lebih baik memposting 3 konten terarah per minggu daripada 14 konten acak tanpa tujuan.</li><li class='ordered-item'>**Eksploitasi 80% membangun kerajaan jangkauan Anda.** Ini adalah mesin yang mendatangkan orang-orang baru setiap detik.</li><li class='ordered-item'>**Eksplorasi 20% melindungi masa depan kerajaan tersebut.** Ini adalah laboratorium yang memastikan Anda tidak punah saat tren bergeser.</li><li class='ordered-item'>**Jual hasil, bukan proses kerja yang rumit.** Klien tidak membeli baris kode atau desain website; mereka membeli peningkatan kepercayaan dan omzet bisnis.</li><li class='ordered-item'>**Spesialisasi mengalahkan generalisasi di fase awal.** Menjadi orang nomor satu di bidang "Bedah Website UMKM" jauh lebih menguntungkan daripada menjadi "Kreator Konten Digital Serbabisa".</li><p>10. **Tiga detik pertama adalah gerbang penentu.** Jika Anda gagal meyakinkan penonton dalam 3 detik pertama, 57 detik berikutnya tidak pernah ada di mata mereka.</p><p>11. **Bukti visual membungkam segala keraguan.** Menunjukkan perbaikan desain sebelum dan sesudah jauh lebih meyakinkan daripada menulis esai 1.000 kata tentang teori desain.</p><p>12. **Ubah subjeknya, pertahankan struktur pemenangnya.** Jika format bedah website berhasil, bedah 80 website berbeda dengan struktur yang sama.</p><p>13. **Konversi membutuhkan instruksi yang gamblang.** Jangan berasumsi penonton tahu cara menyewa jasa Anda; beri tahu mereka dengan tepat langkah apa yang harus diambil.</p><p>14. **Retensi adalah metrik kebenaran.** Jumlah klik bisa dipancing dengan judul sensasional, tapi waktu tonton hanya bisa diraih dengan substansi yang solid.</p><p>15. **Akun yang tidak pernah menjual jasa adalah hobi yang mahal.** Jangan takut menawarkan keahlian Anda kepada mereka yang membutuhkan solusi nyata.</p><p>16. **Emosi menghubungkan, data meyakinkan.** Gunakan cerita personal di porsi 20% untuk membangun kedekatan emosional, dan gunakan data di porsi 80% untuk membangun otoritas.</p><p>17. **Kerugian Anda di porsi 20% selalu terbatas, tapi potensi keuntungannya tidak terbatas.** Ini adalah definisi taruhan asimetris terbaik.</p><p>18. **Format yang lelah bukan akhir dari segalanya.** Format lama melambat agar format baru yang telah Anda uji di laboratorium bisa naik panggung utama.</p><p>19. **Jangan menunggu inspirasi datang untuk mulai merekam.** Inspirasi adalah hasil sampingan dari proses kerja yang terstruktur, bukan syarat awalnya.</p><p>20. **Audiens baru tidak membaca arsip masa lalu Anda.** Hal yang terasa berulang bagi Anda adalah wawasan segar bagi orang yang baru saja mengikuti akun Anda hari ini.</p><p>21. **Kemudahan konsumsi menentukan laju distribusi.** Buat ide yang rumit menjadi analogi visual yang bisa dipahami dalam waktu kurang dari satu menit.</p><p>22. **Kritik dari orang yang tidak pernah memproduksi apa pun bernilai nol.** Dengarkan data perilaku penonton, abaikan komentar negatif tanpa substansi.</p><p>23. **Skalakan apa yang berhasil sampai batas maksimal.** Sebelum Anda mencoba strategi baru, pastikan strategi lama sudah diperas seluruh potensinya.</p><p>24. **Kepercayaan membutuhkan waktu berbulan-bulan untuk dibangun, tapi hanya butuh satu kebohongan untuk hancur.** Selalu tulus dalam memberikan rekomendasi dan penilaian.</p><p>25. **Mainkan permainan jangka panjang dengan orang-orang jangka panjang.** Bangun reputasi digital Anda di atas dasar keahlian yang nyata dan nilai yang terbukti.</p>
+            </div>
+        </section>
+        
+
+        <!-- Footer -->
+        <footer style="text-align: center; margin-top: 60px; color: var(--muted-color); font-family: var(--font-family-ui); font-size: 14px;">
+            <p><strong>Buku Strategi 80:20 Media Sosial</strong> &copy; 2026. Hak Cipta Dilindungi.</p>
+            <p>Dibuat untuk eksekusi nyata, bukan sekadar teori.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Reading Progress Indicator
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        });
+
+        // TOC Drawer Controls
+        function openNav() {
+            document.getElementById("tocDrawer").classList.add("open");
+            document.getElementById("drawerOverlay").style.display = "block";
+        }
+        function closeNav() {
+            document.getElementById("tocDrawer").classList.remove("open");
+            document.getElementById("drawerOverlay").style.display = "none";
+        }
+
+        // Font Size Adjuster (Comfortable for iPad)
+        let currentFontSize = 20;
+        function adjustFontSize(delta) {
+            currentFontSize = Math.min(28, Math.max(16, currentFontSize + delta));
+            document.documentElement.style.setProperty('--font-size-base', currentFontSize + 'px');
+            localStorage.setItem('ipad_reader_font_size', currentFontSize);
+        }
+
+        // Theme Switcher (Warm, Sepia, Dark, OLED)
+        const themes = ['warm', 'sepia', 'dark', 'oled'];
+        let currentThemeIndex = 0;
+        function toggleTheme() {
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+            const theme = themes[currentThemeIndex];
+            document.body.setAttribute('data-theme', theme);
+            const btn = document.getElementById('themeBtn');
+            if (theme === 'warm') btn.innerHTML = '☀️ Terang';
+            else if (theme === 'sepia') btn.innerHTML = '📜 Sepia';
+            else if (theme === 'dark') btn.innerHTML = '🌙 Gelap';
+            else if (theme === 'oled') btn.innerHTML = '🌑 OLED';
+            localStorage.setItem('ipad_reader_theme', theme);
+        }
+
+        // Font Family Toggle (Serif vs Sans)
+        let isSerif = true;
+        function toggleFontFamily() {
+            isSerif = !isSerif;
+            document.body.setAttribute('data-font', isSerif ? 'serif' : 'sans');
+            document.getElementById('fontBtn').innerText = isSerif ? 'Aa Serif' : 'Aa Sans';
+            localStorage.setItem('ipad_reader_font_type', isSerif ? 'serif' : 'sans');
+        }
+
+        // Restore settings
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedSize = localStorage.getItem('ipad_reader_font_size');
+            if (savedSize) {
+                currentFontSize = parseInt(savedSize);
+                document.documentElement.style.setProperty('--font-size-base', currentFontSize + 'px');
+            }
+            const savedTheme = localStorage.getItem('ipad_reader_theme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                currentThemeIndex = themes.indexOf(savedTheme);
+                if (currentThemeIndex === -1) currentThemeIndex = 0;
+            }
+            const savedFontType = localStorage.getItem('ipad_reader_font_type');
+            if (savedFontType === 'sans') {
+                isSerif = false;
+                document.body.setAttribute('data-font', 'sans');
+                document.getElementById('fontBtn').innerText = 'Aa Sans';
+            }
+        });
+    </script>
+</body>
+</html>
