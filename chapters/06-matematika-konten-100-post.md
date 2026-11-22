@@ -1,6 +1,9 @@
 # Bab 6: Cetak Biru Eksekusi 100 Konten Pertama
 *Jadwal Mingguan, Sistem Batching, dan Alur Kerja Tanpa Burnout*
 
+![Diagram 6.1: Matriks Distribusi Mingguan 4:1 & Sistem Batching Tanpa Burnout](../assets/diagram_bab6_kalender.png)
+*Diagram 6.1: Matriks Distribusi Mingguan 4:1 & Sistem Batching Tanpa Burnout*
+
 ## Jadwal Distribusi Mingguan Berbasis Rasio 4:1
 
 Untuk mengeksekusi rasio 80:20 dalam kehidupan sehari-hari, cara paling praktis adalah membaginya ke dalam siklus mingguan dengan pola **4 Konten Pilar : 1 Konten Eksperimen/Monetisasi**.

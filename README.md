@@ -1,10 +1,15 @@
 ﻿# 📚 Mesin Konten Asimetris: Strategi 80:20 Media Sosial
 
 > **Panduan Taktis Mengembangkan Akun, Membangun Otoritas, dan Memonetisasi Keahlian Tanpa Kehabisan Ide.**  
-> *Diformat khusus agar nyaman dan mudah dibaca di layar iPad dan Tablet.*
+> *Format Buku Word (.docx) & Web Reader Eksekutif — Lengkap dengan Foto & Ilustrasi untuk Layar iPad & Tablet.*
 
 🌐 **Live Web Reader (Baca Langsung di iPad):**  
 👉 **[https://mzaini30.github.io/strategi-media-sosial/](https://mzaini30.github.io/strategi-media-sosial/)**
+
+📥 **Unduh Format Dokumen Lengkap:**
+* 📘 [Unduh Format Word (.docx)](buku-strategi-80-20.docx) *(Format Utama: Dilengkapi Ilustrasi Penuh, Cover, & Tipografi iPad 13.5pt)*
+* 📕 [Unduh Format PDF (.pdf)](buku-strategi-80-20.pdf) *(Siap impor ke Apple Books / Acrobat)*
+* 📖 [Baca Naskah Markdown Lengkap (BUKU-LENGKAP.md)](BUKU-LENGKAP.md)
 
 ---
 
@@ -15,6 +20,23 @@ Banyak kreator dan profesional digital gagal bertumbuh bukan karena kekurangan i
 Buku ini mengajarkan arsitektur konten dua pilar:
 - **Pilar 80% (Winning Engine):** Mengeksploitasi format yang sudah terbukti berhasil dengan volume terstruktur. Misalnya jika format "Diskusi dan Bedah Website" terbukti mendatangkan penonton, buat 80 konten berikutnya seputar bedah website dengan 4 variasi sudut pandang taktis.
 - **Pilar 20% (Asymmetric Sandbox):** Mengalokasikan 20% ruang untuk menjual jasa/portofolio nyata klien, membagikan vlog personal di balik layar, serta menguji eksperimen format baru yang berpotensi menjadi format pemenang berikutnya.
+
+---
+
+## 🖼️ Galeri Ilustrasi & Diagram Bab
+
+Buku edisi ini dilengkapi dengan ilustrasi konseptual dan diagram infografis resolusi tinggi:
+
+| Bab | Ilustrasi / Diagram | Deskripsi Visual |
+| :---: | :--- | :--- |
+| **Cover** | ![Cover](assets/cover.jpg) | Desain editorial modern dengan kurva momentum oranye dan latar slate gelap. |
+| **Bab 1** | ![Bab 1](assets/ilustrasi_bab1_paradoks.jpg) | *Paradoks Kreator:* Kurva eksponensial pemenang vs garis zig-zag acak kreator yang bosan. |
+| **Bab 2** | ![Bab 2](assets/diagram_bab2_arsitektur.png) | *Arsitektur 80:20:* Matriks pembagian beban antara Winning Engine (80%) dan Sandbox (20%). |
+| **Bab 3** | ![Bab 3](assets/ilustrasi_bab3_website.jpg) | *Cetak Biru Bedah Website:* Wireframe 3D pendar pendar analisis elemen konversi. |
+| **Bab 4** | ![Bab 4](assets/ilustrasi_bab4_sandbox.jpg) | *Ruang Kerja Studio 20%:* Setup meja kerja creator workstation & penawaran jasa klien. |
+| **Bab 5** | ![Bab 5](assets/ilustrasi_bab5_flywheel.jpg) | *Flywheel Konten Abadi:* Mesin sirkular promosi eksperimen menjadi format juara baru. |
+| **Bab 6** | ![Bab 6](assets/diagram_bab6_kalender.png) | *Matriks Kalender Mingguan 4:1:* Jadwal harian dan alur kerja batching 6 jam. |
+| **Bab 7** | ![Bab 7](assets/ilustrasi_bab7_aksioma.jpg) | *Monolit Prinsip Abadi:* Kompas batu kokoh menghadapi pasang surut algoritma. |
 
 ---
 
@@ -32,16 +54,15 @@ Buku ini mengajarkan arsitektur konten dua pilar:
 
 ---
 
-## 📱 Format yang Tersedia
+## 📱 Keunggulan Format untuk Pembaca iPad & Tablet
 
-1. **Web Reader Interaktif ([index.html](index.html)):**  
-   Dirancang khusus untuk iPad & Tablet! Dilengkapi tombol pengatur ukuran font (A- / A+), tema kertas/sepia/gelap, daftar isi samping, dan indikator progres baca. Buka langsung di Safari atau Chrome iPad.
-2. **Naskah Lengkap Markdown ([BUKU-LENGKAP.md](BUKU-LENGKAP.md)):**  
-   Satu berkas lengkap yang nyaman dibaca langsung di browser GitHub.
-3. **Dokumen Word ([buku-strategi-80-20.docx](buku-strategi-80-20.docx)):**  
-   Diformat dengan tipografi 14pt yang lapang, siap diimpor ke aplikasi pengolah kata.
-4. **Dokumen PDF ([buku-strategi-80-20.pdf](buku-strategi-80-20.pdf)):**  
-   Dihasilkan khusus dengan ukuran huruf besar untuk dibaca langsung di Apple Books / Files pada iPad tanpa perlu zoom.
+1. **Format Word (.docx):**
+   * Menggunakan jenis huruf Georgia dengan ukuran **13.5pt** dan spasi 1.35 yang lapang sehingga nyaman dibaca di aplikasi Microsoft Word / Apple Pages di iPad tanpa perlu memperbesar layar (*zoom*).
+   * Dilengkapi halaman sampul eksklusif, daftar isi terstruktur, kotak sorotan (*callout*), serta tabel data berlatar lembut.
+2. **Web Reader Interaktif ([index.html](index.html)):**
+   * Pengatur ukuran font dinamis (`A+` / `A-`), mode tema (Kertas Terang, Sepia Klasik, Gelap, OLED), dan laci navigasi bab geser.
+3. **Dokumen PDF ([buku-strategi-80-20.pdf](buku-strategi-80-20.pdf)):**
+   * Dihasilkan dengan tipografi tajam dan seluruh ilustrasi berwarna.
 
 ---
 

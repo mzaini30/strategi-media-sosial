@@ -1,6 +1,9 @@
 # Bab 4: Laboratorium 20% — Monetisasi Jasa, Portofolio & Eksperimen Liar
 *Mengubah Penonton Menjadi Pembeli dan Menemukan Terobosan Format Berikutnya*
 
+![Ilustrasi 4.1: Ruang Kerja Studio 20% — Mengonversi Audiens Menjadi Klien Lewat Bukti Nyata](../assets/ilustrasi_bab4_sandbox.jpg)
+*Ilustrasi 4.1: Ruang Kerja Studio 20% — Mengonversi Audiens Menjadi Klien Lewat Bukti Nyata*
+
 ## Mengapa 80% Saja Bisa Membunuh Akun Anda?
 
 Jika Anda hanya memposting 100% video bedah website selamanya tanpa pernah melakukan hal lain, dua masalah besar akan muncul:
@@ -8,15 +11,9 @@ Jika Anda hanya memposting 100% video bedah website selamanya tanpa pernah melak
 2. **Anda tidak pernah tahu apakah ada format lain yang berpotensi menghasilkan dampak 10 kali lebih besar bagi bisnis Anda.**
 
 Porsi 20% adalah ruang perlindungan dan pertumbuhan strategis akun Anda. Dalam siklus 100 konten, 20 konten ini didistribusikan ke dalam 3 fungsi krusial:
-
-```
-                  PEMBAGIAN PORSI 20% (DARI 100 KONTEN)
-  ┌────────────────────────┬────────────────────────┬──────────────────────┐
-  │   8 KONTEN MONETISASI  │     6 KONTEN VLOG      │  6 KONTEN EKSPERIMEN │
-  │   Penawaran Jasa &     │   Personal Brand &     │   Format Liar &      │
-  │   Studi Kasus Klien    │   Filosofi Kerja       │   Uji Sudut Pandang  │
-  └────────────────────────┴────────────────────────┴──────────────────────┘
-```
+- **8 Konten Penawaran Jasa & Portofolio Klien** (Monetisasi Langsung)
+- **6 Konten Personal Brand, Vlog & Filosofi Kerja** (Kedekatan Emosional)
+- **6 Konten Eksperimen Format Liar** (R&D Format Masa Depan)
 
 ---
 

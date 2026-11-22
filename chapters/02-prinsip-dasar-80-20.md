@@ -1,6 +1,9 @@
 # Bab 2: Prinsip 80:20 — Eksploitasi Format Juara vs Eksplorasi Asimetris
 *Arsitektur Distribusi Konten yang Menggabungkan Skala dan Inovasi*
 
+![Diagram 2.1: Arsitektur Konten 80:20 — Pembagian Beban Antara Skala Eksploitasi & Eksplorasi Asimetris](../assets/diagram_bab2_arsitektur.png)
+*Diagram 2.1: Arsitektur Konten 80:20 — Pembagian Beban Antara Skala Eksploitasi & Eksplorasi Asimetris*
+
 ## Algoritma Adalah Mesin Pengenal Pola
 
 Setiap platform media sosial modern—baik itu TikTok, Instagram, YouTube Shorts, LinkedIn, maupun X—bekerja dengan prinsip yang sama: **mencocokkan konten yang tepat dengan penonton yang tepat demi mempertahankan retensi pengguna.**
@@ -25,16 +28,6 @@ Aturan 80:20 memecahkan kebuntuan ini dengan membagi beban kerja ke dalam dua pi
 | :--- | :---: | :--- | :--- |
 | **Winning Engine** | **80%** | Eksploitasi Format Pemenang | Menghasilkan jangkauan luas (*reach*), pengikut baru, dan domain authority. |
 | **Asymmetric Sandbox** | **20%** | Eksplorasi & Monetisasi | Menghasilkan penjualan jasa, membangun kedekatan emosional, dan riset format baru. |
-
-```
-               KOMPOSISI KONTEN (100 KONTEN)
-  ┌─────────────────────────────────────────────────┬───────────┐
-  │                                                 │           │
-  │           80% FORMAT PEMENANG TERBUKTI          │  20% LAB  │
-  │      (Skala, Pengikut Baru, Domain Authority)   │ (Jual/Exp)│
-  │                                                 │           │
-  └─────────────────────────────────────────────────┴───────────┘
-```
 
 ---
 

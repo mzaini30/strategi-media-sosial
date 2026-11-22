@@ -1,6 +1,9 @@
 # Bab 3: Fondasi 80% — Memeras Format Pemenang (Studi Kasus: Diskusi & Bedah Website)
 *Cara Memproduksi 80 Konten Berkualitas Tinggi Tanpa Pernah Kehabisan Ide*
 
+![Ilustrasi 3.1: Cetak Biru Bedah Website — 80 Variasi Taktis dari Satu Format Pemenang](../assets/ilustrasi_bab3_website.jpg)
+*Ilustrasi 3.1: Cetak Biru Bedah Website — 80 Variasi Taktis dari Satu Format Pemenang*
+
 ## Anatomi Format Juara
 
 Bayangkan Anda menemukan bahwa video bertema **"Diskusi & Bedah Website"** adalah format yang berhasil mencuri perhatian audiens. Video tersebut memiliki retensi tinggi, komentar berisi diskusi teknis, dan mendatangkan banyak pengikut baru.

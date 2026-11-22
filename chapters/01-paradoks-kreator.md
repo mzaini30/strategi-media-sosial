@@ -1,6 +1,9 @@
 # Bab 1: Paradoks Kreator — Mengapa Konsistensi Saja Tidak Cukup
 *Menghentikan Kebiasaan Membunuh Format Konten yang Baru Saja Berhasil*
 
+![Ilustrasi 1.1: Paradoks Kreator — Kurva Pertumbuhan Eksponensial Terputus oleh Manuver Topik Acak](../assets/ilustrasi_bab1_paradoks.jpg)
+*Ilustrasi 1.1: Paradoks Kreator — Kurva Pertumbuhan Eksponensial Terputus oleh Manuver Topik Acak*
+
 ## Realitas Pahit di Balik Tombol 'Posting'
 
 Sebagian besar kreator dan pemilik bisnis digital beroperasi di bawah ilusi yang berbahaya: *"Jika saya memposting konten setiap hari secara konsisten, akun saya pada akhirnya pasti akan meledak."*
@@ -18,7 +21,7 @@ Pasar media sosial tidak memberikan kompensasi kepada keringat, durasi rekaman, 
 Amati pola yang berulang pada 95% kreator pemula:
 
 1. Mereka mencoba 10 topik yang berbeda secara acak: tips produktivitas, kutipan motivasi, cerita keseharian, tutorial teknis, dan bedah website.
-2. Tiba-tiba, video nomor 5 tentang **"Bedah Website"** meledak dan mendapatkan 50.000 penayangan serta ratusan komentar.
+2. Tiba-tiba, video nomor 5 tentang **"Bedah Website"** meledak dan mendapatkan 50.000 penayangan serta ratusan komentar antusias.
 3. Alih-alih membuat 50 video bedah website berikutnya, keesokan harinya kreator tersebut memposting video tentang: *"Rutinitas pagi saya minum kopi di kafe."*
 
 Hasilnya? Video kopi tersebut hanya ditonton oleh 200 orang.

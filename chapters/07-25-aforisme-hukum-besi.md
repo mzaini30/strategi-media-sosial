@@ -1,6 +1,9 @@
 # Bab 7: 25 Aksioma & Hukum Besi Media Sosial
 *Prinsip-Prinsip Pokok Pengungkit Digital untuk Dibaca Berulang Kali*
 
+![Ilustrasi 7.1: Monolit Prinsip Digital Abadi — Bertahan Menghadapi Pasang Surut Algoritma](../assets/ilustrasi_bab7_aksioma.jpg)
+*Ilustrasi 7.1: Monolit Prinsip Digital Abadi — Bertahan Menghadapi Pasang Surut Algoritma*
+
 ## Kumpulan Prinsip Aksiomatik Pertumbuhan Digital
 
 Simpan halaman ini. Buka kembali saat Anda merasa kehilangan arah atau tergoda untuk berhenti memposting format yang sedang bekerja.
