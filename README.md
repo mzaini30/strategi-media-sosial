@@ -1,21 +1,24 @@
-﻿# ðŸ“š Mesin Konten Asimetris: Strategi 80:20 Media Sosial
+﻿# 📚 Mesin Konten Asimetris: Strategi 80:20 Media Sosial
 
 > **Panduan Taktis Mengembangkan Akun, Membangun Otoritas, dan Memonetisasi Keahlian Tanpa Kehabisan Ide.**  
 > *Diformat khusus agar nyaman dan mudah dibaca di layar iPad dan Tablet.*
 
+🌐 **Live Web Reader (Baca Langsung di iPad):**  
+👉 **[https://mzaini30.github.io/strategi-media-sosial/](https://mzaini30.github.io/strategi-media-sosial/)**
+
 ---
 
-## ðŸŽ¯ Inti Strategi 80:20
+## 🎯 Inti Strategi 80:20
 
 Banyak kreator dan profesional digital gagal bertumbuh bukan karena kekurangan ide, melainkan karena **mengidap sindrom bosan sendiri**: saat satu format konten berhasil meledak, mereka justru meninggalkannya dan mencoba hal acak lainnya.
 
 Buku ini mengajarkan arsitektur konten dua pilar:
-- **Pilar 80% (Winning Engine):** Mengeksploitasi format yang sudah terbukti berhasil dengan volume terstruktur. Misalnya jika format "Diskusi & Bedah Website" terbukti mendatangkan penonton, buat 80 konten berikutnya seputar bedah website dengan 4 variasi sudut pandang taktis.
+- **Pilar 80% (Winning Engine):** Mengeksploitasi format yang sudah terbukti berhasil dengan volume terstruktur. Misalnya jika format "Diskusi dan Bedah Website" terbukti mendatangkan penonton, buat 80 konten berikutnya seputar bedah website dengan 4 variasi sudut pandang taktis.
 - **Pilar 20% (Asymmetric Sandbox):** Mengalokasikan 20% ruang untuk menjual jasa/portofolio nyata klien, membagikan vlog personal di balik layar, serta menguji eksperimen format baru yang berpotensi menjadi format pemenang berikutnya.
 
 ---
 
-## ðŸ“– Daftar Isi Lengkap
+## 📖 Daftar Isi Lengkap
 
 | Bab | Judul | Topik Bahasan |
 | :---: | :--- | :--- |
@@ -29,19 +32,18 @@ Buku ini mengajarkan arsitektur konten dua pilar:
 
 ---
 
-## ðŸ“± Format yang Tersedia
+## 📱 Format yang Tersedia
 
-1. **Web Reader Interaktif (`index.html`):**  
+1. **Web Reader Interaktif ([index.html](index.html)):**  
    Dirancang khusus untuk iPad & Tablet! Dilengkapi tombol pengatur ukuran font (A- / A+), tema kertas/sepia/gelap, daftar isi samping, dan indikator progres baca. Buka langsung di Safari atau Chrome iPad.
-2. **Naskah Lengkap Markdown (`BUKU-LENGKAP.md`):**  
+2. **Naskah Lengkap Markdown ([BUKU-LENGKAP.md](BUKU-LENGKAP.md)):**  
    Satu berkas lengkap yang nyaman dibaca langsung di browser GitHub.
-3. **Dokumen Word (`buku-strategi-80-20.docx`):**  
+3. **Dokumen Word ([buku-strategi-80-20.docx](buku-strategi-80-20.docx)):**  
    Diformat dengan tipografi 14pt yang lapang, siap diimpor ke aplikasi pengolah kata.
-4. **Dokumen PDF (`buku-strategi-80-20.pdf`):**  
+4. **Dokumen PDF ([buku-strategi-80-20.pdf](buku-strategi-80-20.pdf)):**  
    Dihasilkan khusus dengan ukuran huruf besar untuk dibaca langsung di Apple Books / Files pada iPad tanpa perlu zoom.
 
 ---
 
-## ðŸš€ Lisensi & Kontribusi
+## 🚀 Lisensi & Akses
 Dibuat untuk para kreator, agensi, dan profesional digital yang ingin membangun pengungkit media tanpa mengorbankan waktu dan kewarasan.
-
