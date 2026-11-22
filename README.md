@@ -1,11 +1,11 @@
-# 📚 Mesin Konten Asimetris: Strategi 80:20 Media Sosial
+﻿# ðŸ“š Mesin Konten Asimetris: Strategi 80:20 Media Sosial
 
 > **Panduan Taktis Mengembangkan Akun, Membangun Otoritas, dan Memonetisasi Keahlian Tanpa Kehabisan Ide.**  
 > *Diformat khusus agar nyaman dan mudah dibaca di layar iPad dan Tablet.*
 
 ---
 
-## 🎯 Inti Strategi 80:20
+## ðŸŽ¯ Inti Strategi 80:20
 
 Banyak kreator dan profesional digital gagal bertumbuh bukan karena kekurangan ide, melainkan karena **mengidap sindrom bosan sendiri**: saat satu format konten berhasil meledak, mereka justru meninggalkannya dan mencoba hal acak lainnya.
 
@@ -15,7 +15,7 @@ Buku ini mengajarkan arsitektur konten dua pilar:
 
 ---
 
-## 📖 Daftar Isi Lengkap
+## ðŸ“– Daftar Isi Lengkap
 
 | Bab | Judul | Topik Bahasan |
 | :---: | :--- | :--- |
@@ -29,7 +29,7 @@ Buku ini mengajarkan arsitektur konten dua pilar:
 
 ---
 
-## 📱 Format yang Tersedia
+## ðŸ“± Format yang Tersedia
 
 1. **Web Reader Interaktif (`index.html`):**  
    Dirancang khusus untuk iPad & Tablet! Dilengkapi tombol pengatur ukuran font (A- / A+), tema kertas/sepia/gelap, daftar isi samping, dan indikator progres baca. Buka langsung di Safari atau Chrome iPad.
@@ -42,5 +42,6 @@ Buku ini mengajarkan arsitektur konten dua pilar:
 
 ---
 
-## 🚀 Lisensi & Kontribusi
+## ðŸš€ Lisensi & Kontribusi
 Dibuat untuk para kreator, agensi, dan profesional digital yang ingin membangun pengungkit media tanpa mengorbankan waktu dan kewarasan.
+
