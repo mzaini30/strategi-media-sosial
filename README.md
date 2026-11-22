@@ -1,13 +1,14 @@
 ﻿# 📚 Mesin Konten Asimetris: Strategi 80:20 Media Sosial
 
 > **Panduan Taktis Mengembangkan Akun, Membangun Otoritas, dan Memonetisasi Keahlian Tanpa Kehabisan Ide.**  
+> **Karya: Zen**  
 > *Format Buku Word (.docx) & Web Reader Eksekutif — Lengkap dengan Foto & Ilustrasi untuk Layar iPad & Tablet.*
 
 🌐 **Live Web Reader (Baca Langsung di iPad):**  
 👉 **[https://mzaini30.github.io/strategi-media-sosial/](https://mzaini30.github.io/strategi-media-sosial/)**
 
 📥 **Unduh Format Dokumen Lengkap:**
-* 📘 [Unduh Format Word (.docx)](buku-strategi-80-20.docx) *(Format Utama: Dilengkapi Ilustrasi Penuh, Cover, & Tipografi iPad 13.5pt)*
+* 📘 [Unduh Format Word (.docx)](buku-strategi-80-20.docx) *(Format Utama WordCraft: Tipografi Asli Bold & Italic Terformat, Cover by Zen, Ilustrasi Penuh, & Font Georgia 13.5pt)*
 * 📕 [Unduh Format PDF (.pdf)](buku-strategi-80-20.pdf) *(Siap impor ke Apple Books / Acrobat)*
 * 📖 [Baca Naskah Markdown Lengkap (BUKU-LENGKAP.md)](BUKU-LENGKAP.md)
 
@@ -27,9 +28,9 @@ Buku ini mengajarkan arsitektur konten dua pilar:
 
 Buku edisi ini dilengkapi dengan ilustrasi konseptual dan diagram infografis resolusi tinggi:
 
-| Bab | Ilustrasi / Diagram | Deskripsi Visual |
+| Bagian | Ilustrasi / Diagram | Deskripsi Visual |
 | :---: | :--- | :--- |
-| **Cover** | ![Cover](assets/cover.jpg) | Desain editorial modern dengan kurva momentum oranye dan latar slate gelap. |
+| **Cover** | ![Cover](assets/cover.jpg) | Desain editorial modern kurva momentum terakota dengan atribusi **BY ZEN**. |
 | **Bab 1** | ![Bab 1](assets/ilustrasi_bab1_paradoks.jpg) | *Paradoks Kreator:* Kurva eksponensial pemenang vs garis zig-zag acak kreator yang bosan. |
 | **Bab 2** | ![Bab 2](assets/diagram_bab2_arsitektur.png) | *Arsitektur 80:20:* Matriks pembagian beban antara Winning Engine (80%) dan Sandbox (20%). |
 | **Bab 3** | ![Bab 3](assets/ilustrasi_bab3_website.jpg) | *Cetak Biru Bedah Website:* Wireframe 3D pendar pendar analisis elemen konversi. |
@@ -56,9 +57,10 @@ Buku edisi ini dilengkapi dengan ilustrasi konseptual dan diagram infografis res
 
 ## 📱 Keunggulan Format untuk Pembaca iPad & Tablet
 
-1. **Format Word (.docx):**
-   * Menggunakan jenis huruf Georgia dengan ukuran **13.5pt** dan spasi 1.35 yang lapang sehingga nyaman dibaca di aplikasi Microsoft Word / Apple Pages di iPad tanpa perlu memperbesar layar (*zoom*).
-   * Dilengkapi halaman sampul eksklusif, daftar isi terstruktur, kotak sorotan (*callout*), serta tabel data berlatar lembut.
+1. **Format Word (.docx - MCP WordCraft):**
+   * Sintaks Markdown telah dikonversi menjadi tipografi Word murni (tanpa karakter asterisk `*` atau `**`). Kalimat kutipan otomatis menjadi *italic*, penegasan konsep menjadi **bold**, dan kutipan blok (*callout*) berlatar arsir lembut.
+   * Menggunakan jenis huruf Georgia dengan ukuran **13.5pt** dan spasi 1.35 yang lapang sehingga sangat nyaman dibaca di aplikasi Microsoft Word / Apple Pages di iPad tanpa perlu *zoom*.
+   * Dilengkapi halaman sampul eksklusif **By Zen**, daftar isi terstruktur, dan tabel data berlatar rapi.
 2. **Web Reader Interaktif ([index.html](index.html)):**
    * Pengatur ukuran font dinamis (`A+` / `A-`), mode tema (Kertas Terang, Sepia Klasik, Gelap, OLED), dan laci navigasi bab geser.
 3. **Dokumen PDF ([buku-strategi-80-20.pdf](buku-strategi-80-20.pdf)):**
@@ -66,5 +68,5 @@ Buku edisi ini dilengkapi dengan ilustrasi konseptual dan diagram infografis res
 
 ---
 
-## 🚀 Lisensi & Akses
-Dibuat untuk para kreator, agensi, dan profesional digital yang ingin membangun pengungkit media tanpa mengorbankan waktu dan kewarasan.
+## 🚀 Lisensi & Hak Cipta
+Dibuat oleh **Zen** untuk para kreator, agensi, dan profesional digital yang ingin membangun pengungkit media tanpa mengorbankan waktu dan kewarasan.

@@ -1,6 +1,8 @@
 # 📚 MESIN KONTEN ASIMETRIS: STRATEGI 80:20 MEDIA SOSIAL
 ### *Panduan Taktis Mengembangkan Akun, Membangun Otoritas, dan Memonetisasi Keahlian Tanpa Kehabisan Ide*
 
+**Karya: Zen**
+
 ![Cover Buku](assets/cover.jpg)
 
 > **Format Baca Optimal:** iPad & Tablet (Font Besar, Berilustrasi Penuh)

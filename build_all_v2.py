@@ -1,27 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-Builder v2: Membangun buku Word (.docx) lengkap dengan foto & ilustrasi di setiap bab,
-serta sinkronisasi ke Web Reader iPad (index.html), PDF, dan Markdown.
+Builder v2.1: Membangun buku Word (.docx) lengkap dengan parsing Markdown penuh (Bold & Italic asli),
+foto & ilustrasi di setiap bab, serta atribusi penulis 'By Zen'.
+Sinkronisasi ke Web Reader iPad (index.html), PDF, dan Markdown.
 """
 
 import os
+import re
 import shutil
 from docx import Document
 from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
-from docx.oxml import OxmlElement, parse_xml
-from docx.oxml.ns import qn, nsdecls
+from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Image as RLImage, Table as RLTable, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Image as RLImage
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
-
-# 1. Salin aset ilustrasi Bab 7
-ch7_src = r'C:\Users\Admin\.gemini\antigravity-cli\brain\87b7ee5d-f1d2-4bde-966a-0314bfd18a2c\chapter7_axioms_monolith_1795383552460.jpg'
-if os.path.exists(ch7_src):
-    shutil.copy(ch7_src, 'assets/ilustrasi_bab7_aksioma.jpg')
-    print("Ilustrasi Bab 7 berhasil disalin ke assets/ilustrasi_bab7_aksioma.jpg")
 
 # Data bab buku lengkap dengan metadata ilustrasi
 chapters_data = [
@@ -375,14 +371,102 @@ Simpan halaman ini. Buka kembali saat Anda merasa kehilangan arah atau tergoda u
     }
 ]
 
+def parse_markdown_to_docx_runs(paragraph, text, base_font_size=13.5, font_name="Georgia", default_color=None, inherit_italic=False, inherit_bold=False):
+    """
+    Mengonversi string yang mengandung format Markdown inline (**bold**, *italic*, ***bolditalic***, `code`)
+    menjadi runs Word asli pada objek paragraph python-docx.
+    Menghilangkan tanda asterisk (*) dan backtick (`) sehingga menghasilkan teks Word yang bersih dan terformat.
+    """
+    pattern = re.compile(r'(\*\*\*.*?\*\*\*|\*\*.*?\*\*|\*[^\*]+?\*|`[^`]+?`)')
+    tokens = pattern.split(text)
+    
+    for token in tokens:
+        if not token:
+            continue
+        
+        # Bold & Italic: ***text***
+        if token.startswith('***') and token.endswith('***'):
+            inner = token[3:-3]
+            r = paragraph.add_run(inner)
+            r.font.name = font_name
+            r.font.size = Pt(base_font_size)
+            r.bold = True
+            r.italic = True
+            if default_color:
+                r.font.color.rgb = default_color
+                
+        # Bold: **text** (bisa ada *italic* di dalamnya)
+        elif token.startswith('**') and token.endswith('**'):
+            inner = token[2:-2]
+            sub_pattern = re.compile(r'(\*[^\*]+?\*)')
+            sub_tokens = sub_pattern.split(inner)
+            for st in sub_tokens:
+                if not st:
+                    continue
+                if st.startswith('*') and st.endswith('*'):
+                    r = paragraph.add_run(st[1:-1])
+                    r.font.name = font_name
+                    r.font.size = Pt(base_font_size)
+                    r.bold = True
+                    r.italic = True
+                else:
+                    r = paragraph.add_run(st)
+                    r.font.name = font_name
+                    r.font.size = Pt(base_font_size)
+                    r.bold = True
+                    r.italic = inherit_italic
+                if default_color:
+                    r.font.color.rgb = default_color
+                    
+        # Italic: *text* (bisa ada **bold** di dalamnya)
+        elif token.startswith('*') and token.endswith('*'):
+            inner = token[1:-1]
+            sub_pattern = re.compile(r'(\*\*.*?\*\*)')
+            sub_tokens = sub_pattern.split(inner)
+            for st in sub_tokens:
+                if not st:
+                    continue
+                if st.startswith('**') and st.endswith('**'):
+                    r = paragraph.add_run(st[2:-2])
+                    r.font.name = font_name
+                    r.font.size = Pt(base_font_size)
+                    r.bold = True
+                    r.italic = True
+                else:
+                    r = paragraph.add_run(st)
+                    r.font.name = font_name
+                    r.font.size = Pt(base_font_size)
+                    r.bold = inherit_bold
+                    r.italic = True
+                if default_color:
+                    r.font.color.rgb = default_color
+                    
+        # Code: `code`
+        elif token.startswith('`') and token.endswith('`'):
+            inner = token[1:-1]
+            r = paragraph.add_run(inner)
+            r.font.name = "Consolas"
+            r.font.size = Pt(base_font_size - 1)
+            r.font.color.rgb = RGBColor(180, 50, 50) if not default_color else default_color
+            
+        # Regular text
+        else:
+            r = paragraph.add_run(token)
+            r.font.name = font_name
+            r.font.size = Pt(base_font_size)
+            r.bold = inherit_bold
+            r.italic = inherit_italic
+            if default_color:
+                r.font.color.rgb = default_color
+
 def set_cell_background(cell, fill_hex):
-    """Set background color of a table cell in docx"""
+    """Set warna latar sel tabel Word"""
     tcPr = cell._element.get_or_add_tcPr()
     shd = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{fill_hex}"/>')
     tcPr.append(shd)
 
 def build_docx_rich():
-    print("Membangun Dokumen Word Kaya Ilustrasi (buku-strategi-80-20.docx)...")
+    print("Membangun Dokumen Word Kaya Format (WordCraft) -> buku-strategi-80-20.docx...")
     doc = Document()
     
     # Atur margin ramah iPad
@@ -397,7 +481,7 @@ def build_docx_rich():
         cover_p = doc.add_paragraph()
         cover_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         c_run = cover_p.add_run()
-        c_run.add_picture("assets/cover.jpg", width=Inches(5.2))
+        c_run.add_picture("assets/cover.jpg", width=Inches(5.0))
         
     p_title = doc.add_paragraph()
     p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -411,12 +495,22 @@ def build_docx_rich():
     
     p_sub = doc.add_paragraph()
     p_sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_sub.paragraph_format.space_after = Pt(20)
+    p_sub.paragraph_format.space_after = Pt(10)
     run_s = p_sub.add_run("Mesin Konten Asimetris: 80% Eksploitasi Format Pemenang, 20% Eksperimen & Penjualan Jasa\nEdisi Eksekutif iPad & Tablet (Font Besar & Berilustrasi)")
     run_s.font.name = "Georgia"
     run_s.font.size = Pt(13)
     run_s.font.italic = True
     run_s.font.color.rgb = RGBColor(87, 96, 106)
+
+    # Penulis: By Zen
+    p_author = doc.add_paragraph()
+    p_author.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_author.paragraph_format.space_after = Pt(20)
+    run_auth = p_author.add_run("Karya: Zen")
+    run_auth.font.name = "Georgia"
+    run_auth.font.size = Pt(13.5)
+    run_auth.font.bold = True
+    run_auth.font.color.rgb = RGBColor(217, 83, 30)
 
     doc.add_page_break()
 
@@ -473,7 +567,6 @@ def build_docx_rich():
             img_p.paragraph_format.space_before = Pt(8)
             img_p.paragraph_format.space_after = Pt(4)
             r_img = img_p.add_run()
-            # Lebar 5.2 inci pas untuk halaman portrait
             r_img.add_picture(ch["image"], width=Inches(5.2))
             
             # Caption Gambar
@@ -486,7 +579,7 @@ def build_docx_rich():
             cap_run.font.italic = True
             cap_run.font.color.rgb = RGBColor(110, 110, 110)
 
-        # Konten Teks Bab
+        # Konten Teks Bab dengan Parser Markdown Asli
         lines = ch["content"].split("\n")
         in_table = False
         table_rows = []
@@ -507,7 +600,6 @@ def build_docx_rich():
             else:
                 if in_table:
                     in_table = False
-                    # Bangun tabel docx
                     if len(table_rows) > 0:
                         tbl = doc.add_table(rows=len(table_rows), cols=len(table_rows[0]))
                         tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -515,14 +607,18 @@ def build_docx_rich():
                             row = tbl.rows[row_idx]
                             for col_idx, cell_data in enumerate(r_data):
                                 cell = row.cells[col_idx]
-                                cell.text = cell_data
                                 p = cell.paragraphs[0]
-                                p.runs[0].font.name = "Georgia"
-                                p.runs[0].font.size = Pt(11)
-                                if row_idx == 0:
+                                p.text = "" # Bersihkan teks default
+                                is_head = (row_idx == 0)
+                                parse_markdown_to_docx_runs(
+                                    p, cell_data,
+                                    base_font_size=11,
+                                    font_name="Georgia",
+                                    default_color=RGBColor(217, 83, 30) if is_head else RGBColor(31, 35, 40),
+                                    inherit_bold=is_head
+                                )
+                                if is_head:
                                     set_cell_background(cell, "FFF5EE")
-                                    p.runs[0].font.bold = True
-                                    p.runs[0].font.color.rgb = RGBColor(217, 83, 30)
                                 else:
                                     set_cell_background(cell, "FAFAFA" if row_idx % 2 == 1 else "FFFFFF")
                         doc.add_paragraph().paragraph_format.space_after = Pt(8)
@@ -534,19 +630,24 @@ def build_docx_rich():
                 h2 = doc.add_heading(level=2)
                 h2.paragraph_format.space_before = Pt(16)
                 h2.paragraph_format.space_after = Pt(6)
-                h2_run = h2.add_run(line_str[3:])
-                h2_run.font.size = Pt(14.5)
-                h2_run.font.bold = True
-                h2_run.font.name = "Georgia"
-                h2_run.font.color.rgb = RGBColor(217, 83, 30)
+                parse_markdown_to_docx_runs(
+                    h2, line_str[3:],
+                    base_font_size=14.5,
+                    font_name="Georgia",
+                    default_color=RGBColor(217, 83, 30),
+                    inherit_bold=True
+                )
             elif line_str.startswith("### "):
                 h3 = doc.add_heading(level=3)
                 h3.paragraph_format.space_before = Pt(12)
                 h3.paragraph_format.space_after = Pt(4)
-                h3_run = h3.add_run(line_str[4:])
-                h3_run.font.size = Pt(13)
-                h3_run.font.bold = True
-                h3_run.font.name = "Georgia"
+                parse_markdown_to_docx_runs(
+                    h3, line_str[4:],
+                    base_font_size=13.0,
+                    font_name="Georgia",
+                    default_color=RGBColor(31, 35, 40),
+                    inherit_bold=True
+                )
             elif line_str.startswith("> "):
                 callout_tbl = doc.add_table(rows=1, cols=1)
                 callout_tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -557,39 +658,49 @@ def build_docx_rich():
                 c_p.paragraph_format.right_indent = Inches(0.15)
                 c_p.paragraph_format.space_before = Pt(6)
                 c_p.paragraph_format.space_after = Pt(6)
-                c_run = c_p.add_run(f"“{line_str[2:]}”")
-                c_run.font.name = "Georgia"
-                c_run.font.size = Pt(12.5)
-                c_run.font.italic = True
-                c_run.font.color.rgb = RGBColor(140, 71, 38)
+                
+                # Hilangkan '> ' dan kutip
+                quote_text = line_str[2:].strip()
+                parse_markdown_to_docx_runs(
+                    c_p, f"“{quote_text}”",
+                    base_font_size=12.5,
+                    font_name="Georgia",
+                    default_color=RGBColor(140, 71, 38),
+                    inherit_italic=True
+                )
                 doc.add_paragraph().paragraph_format.space_after = Pt(6)
             elif line_str.startswith("- ") or (line_str[0].isdigit() and line_str[1:3] in [". ", ") "]):
                 list_p = doc.add_paragraph(style='List Bullet')
                 item_text = line_str[2:] if line_str.startswith("- ") else line_str[3:]
-                l_run = list_p.add_run(item_text)
-                l_run.font.size = Pt(13)
-                l_run.font.name = "Georgia"
+                parse_markdown_to_docx_runs(
+                    list_p, item_text,
+                    base_font_size=13.0,
+                    font_name="Georgia"
+                )
                 list_p.paragraph_format.space_after = Pt(4)
             elif line_str.startswith("---"):
                 continue
             else:
                 p = doc.add_paragraph()
-                p_run = p.add_run(line_str)
-                p_run.font.size = Pt(13)
-                p_run.font.name = "Georgia"
+                parse_markdown_to_docx_runs(
+                    p, line_str,
+                    base_font_size=13.5,
+                    font_name="Georgia"
+                )
                 p.paragraph_format.line_spacing = 1.35
                 p.paragraph_format.space_after = Pt(10)
                 
         doc.add_page_break()
 
     doc.save("buku-strategi-80-20.docx")
-    print("  [SUKSES] Dokumen Word berhasil dibuat: buku-strategi-80-20.docx")
+    print("  [SUKSES] Dokumen Word WordCraft berhasil dibuat: buku-strategi-80-20.docx")
 
 def build_markdown_with_images():
-    print("Membangun Berkas Markdown dengan tautan ilustrasi...")
+    print("Membangun Berkas Markdown dengan atribusi 'By Zen'...")
     full_book_md = []
     full_book_md.append("# 📚 MESIN KONTEN ASIMETRIS: STRATEGI 80:20 MEDIA SOSIAL")
     full_book_md.append("### *Panduan Taktis Mengembangkan Akun, Membangun Otoritas, dan Memonetisasi Keahlian Tanpa Kehabisan Ide*\n")
+    full_book_md.append("**Karya: Zen**\n")
     full_book_md.append("![Cover Buku](assets/cover.jpg)\n")
     full_book_md.append("> **Format Baca Optimal:** iPad & Tablet (Font Besar, Berilustrasi Penuh)\n")
     full_book_md.append("---\n")
@@ -599,7 +710,6 @@ def build_markdown_with_images():
     full_book_md.append("\n---\n")
 
     for ch in chapters_data:
-        # File Markdown per bab
         ch_path = os.path.join("chapters", ch["file"])
         with open(ch_path, "w", encoding="utf-8") as f:
             f.write(f"# {ch['title']}\n")
@@ -609,7 +719,6 @@ def build_markdown_with_images():
             f.write(ch['content'])
             f.write("\n")
             
-        # Buku lengkap
         full_book_md.append(f"<a id='{ch['id']}'></a>\n")
         full_book_md.append(f"# {ch['title']}\n")
         full_book_md.append(f"*{ch['subtitle']}*\n\n")
@@ -620,10 +729,10 @@ def build_markdown_with_images():
 
     with open("BUKU-LENGKAP.md", "w", encoding="utf-8") as f:
         f.write("\n".join(full_book_md))
-    print("  [SUKSES] BUKU-LENGKAP.md & chapters/ diperbarui dengan ilustrasi!")
+    print("  [SUKSES] BUKU-LENGKAP.md & chapters/ diperbarui!")
 
 def build_ipad_html_rich():
-    print("Membangun Web Reader iPad dengan Ilustrasi (index.html)...")
+    print("Membangun Web Reader iPad (index.html)...")
     chapters_html = []
     toc_links = []
     
@@ -637,7 +746,6 @@ def build_ipad_html_rich():
         in_code = False
         code_lines = []
         
-        # Tambahkan ilustrasi di awal bab
         img_tag = f"""
         <figure class="chapter-illustration">
             <img src="{ch['image']}" alt="{ch['caption']}" loading="lazy" class="responsive-img"/>
@@ -700,7 +808,13 @@ def build_ipad_html_rich():
             elif line_str[0].isdigit() and line_str[1:3] in [". ", ") "]:
                 parsed_body.append(f"<li class='ordered-item'>{line_str[3:]}</li>")
             else:
-                parsed_body.append(f"<p>{line_str}</p>")
+                # Format bold & italic untuk HTML
+                html_line = line_str
+                html_line = re.sub(r'\*\*\*(.*?)\*\*\*', r'<strong><em>\1</em></strong>', html_line)
+                html_line = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html_line)
+                html_line = re.sub(r'\*(.*?)\*', r'<em>\1</em>', html_line)
+                html_line = re.sub(r'`(.*?)`', r'<code>\1</code>', html_line)
+                parsed_body.append(f"<p>{html_line}</p>")
                 
         ch_section = f"""
         <section id="{ch['id']}" class="chapter-card">
@@ -721,7 +835,7 @@ def build_ipad_html_rich():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Mesin Konten Asimetris: Strategi 80:20 Media Sosial</title>
+    <title>Mesin Konten Asimetris: Strategi 80:20 Media Sosial - by Zen</title>
     <style>
         :root {{
             --bg-color: #FAF8F5;
@@ -794,7 +908,6 @@ def build_ipad_html_rich():
             -webkit-font-smoothing: antialiased;
         }}
 
-        /* Header iPad */
         .reader-header {{
             position: sticky;
             top: 0;
@@ -867,7 +980,6 @@ def build_ipad_html_rich():
             gap: 8px;
         }}
 
-        /* Drawer */
         .drawer-overlay {{
             position: fixed;
             top: 0;
@@ -937,14 +1049,12 @@ def build_ipad_html_rich():
             color: var(--accent-color);
         }}
 
-        /* Container iPad */
         .reader-container {{
             max-width: var(--content-max-width);
             margin: 0 auto;
             padding: 40px 24px 100px 24px;
         }}
 
-        /* Hero */
         .book-hero {{
             text-align: center;
             padding: 30px 10px 40px 10px;
@@ -978,8 +1088,16 @@ def build_ipad_html_rich():
             font-size: 2.2em;
             line-height: 1.25;
             font-weight: 900;
-            margin-bottom: 14px;
+            margin-bottom: 10px;
             color: var(--text-color);
+        }}
+
+        .book-author {{
+            font-size: 1.15em;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 14px;
+            font-family: var(--font-family-ui);
         }}
 
         .book-sub-title {{
@@ -990,7 +1108,6 @@ def build_ipad_html_rich():
             font-style: italic;
         }}
 
-        /* Chapter Cards */
         .chapter-card {{
             background: var(--surface-color);
             border: 1px solid var(--border-color);
@@ -1028,7 +1145,6 @@ def build_ipad_html_rich():
             font-style: italic;
         }}
 
-        /* Illustrations */
         .chapter-illustration {{
             margin: 24px 0 34px 0;
             text-align: center;
@@ -1172,17 +1288,18 @@ def build_ipad_html_rich():
     <main class="reader-container">
         
         <section class="book-hero">
-            <img src="assets/cover.jpg" alt="Cover Buku Aturan 80:20 Media Sosial" class="hero-cover-img"/>
+            <img src="assets/cover.jpg" alt="Cover Buku Aturan 80:20 Media Sosial by Zen" class="hero-cover-img"/>
             <br/>
             <span class="book-badge">Edisi Pembaca iPad & Tablet</span>
             <h1 class="book-main-title">ATURAN 80:20 MEDIA SOSIAL</h1>
+            <p class="book-author">Karya: Zen</p>
             <p class="book-sub-title">Mesin Konten Asimetris: 80% Eksploitasi Format Pemenang, 20% Eksperimen & Penjualan Jasa.</p>
         </section>
 
         {"".join(chapters_html)}
 
         <footer style="text-align: center; margin-top: 60px; color: var(--muted-color); font-family: var(--font-family-ui); font-size: 14px;">
-            <p><strong>Buku Strategi 80:20 Media Sosial</strong> &copy; 2026. Hak Cipta Dilindungi.</p>
+            <p><strong>Buku Strategi 80:20 Media Sosial</strong> &copy; 2026 Zen. Hak Cipta Dilindungi.</p>
         </footer>
 
     </main>
@@ -1258,10 +1375,10 @@ def build_ipad_html_rich():
 """
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_template)
-    print("  [SUKSES] index.html diperbarui dengan ilustrasi!")
+    print("  [SUKSES] index.html diperbarui dengan atribusi 'by Zen'!")
 
 def build_pdf_rich():
-    print("Membangun Dokumen PDF dengan Ilustrasi (buku-strategi-80-20.pdf)...")
+    print("Membangun Dokumen PDF dengan atribusi 'by Zen' (buku-strategi-80-20.pdf)...")
     pdf_filename = "buku-strategi-80-20.pdf"
     
     doc = SimpleDocTemplate(
@@ -1281,6 +1398,17 @@ def build_pdf_rich():
         fontName='Helvetica-Bold',
         fontSize=24,
         leading=30,
+        textColor=colors.HexColor("#D9531E"),
+        alignment=1,
+        spaceAfter=6
+    )
+
+    author_style = ParagraphStyle(
+        'BookAuthor',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=13,
+        leading=17,
         textColor=colors.HexColor("#D9531E"),
         alignment=1,
         spaceAfter=10
@@ -1366,13 +1494,13 @@ def build_pdf_rich():
     
     story = []
     
-    # Cover
     if os.path.exists("assets/cover.jpg"):
         story.append(Spacer(1, 20))
-        story.append(RLImage("assets/cover.jpg", width=300, height=300))
-        story.append(Spacer(1, 20))
+        story.append(RLImage("assets/cover.jpg", width=280, height=280))
+        story.append(Spacer(1, 15))
         
     story.append(Paragraph("ATURAN 80:20 MEDIA SOSIAL", title_style))
+    story.append(Paragraph("<b>Karya: Zen</b>", author_style))
     story.append(Paragraph("Mesin Konten Asimetris: 80% Eksploitasi Format Pemenang, 20% Eksperimen & Jualan Jasa<br/><b>Edisi Tablet & iPad (Font Besar & Berilustrasi)</b>", subtitle_style))
     story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor("#E5E0D8"), spaceAfter=24))
     
@@ -1380,7 +1508,6 @@ def build_pdf_rich():
         story.append(Paragraph(ch["title"], ch_title_style))
         story.append(Paragraph(ch["subtitle"], ch_subtitle_style))
         
-        # Gambar bab
         if os.path.exists(ch["image"]):
             try:
                 story.append(RLImage(ch["image"], width=460, height=260))
@@ -1399,12 +1526,18 @@ def build_pdf_rich():
                 story.append(Paragraph(f"<b>{line_str[4:]}</b>", body_style))
             elif line_str.startswith("> "):
                 clean_c = line_str[2:].replace("<", "&lt;").replace(">", "&gt;")
-                story.append(Paragraph(f"<i>&ldquo;{clean_c}&rdquo;</i>", callout_style))
+                clean_c = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', clean_c)
+                clean_c = re.sub(r'\*(.*?)\*', r'<i>\1</i>', clean_c)
+                story.append(Paragraph(f"&ldquo;{clean_c}&rdquo;", callout_style))
             elif line_str.startswith("- "):
                 clean_l = line_str[2:].replace("<", "&lt;").replace(">", "&gt;")
+                clean_l = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', clean_l)
+                clean_l = re.sub(r'\*(.*?)\*', r'<i>\1</i>', clean_l)
                 story.append(Paragraph(f"&bull; {clean_l}", body_style))
             else:
                 clean_p = line_str.replace("<", "&lt;").replace(">", "&gt;")
+                clean_p = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', clean_p)
+                clean_p = re.sub(r'\*(.*?)\*', r'<i>\1</i>', clean_p)
                 story.append(Paragraph(clean_p, body_style))
                 
         story.append(Spacer(1, 20))
@@ -1417,4 +1550,4 @@ if __name__ == "__main__":
     build_markdown_with_images()
     build_ipad_html_rich()
     build_pdf_rich()
-    print("Semua format buku dengan ilustrasi lengkap telah selesai dibangun!")
+    print("Semua format buku dengan pembaruan WordCraft (Bold & Italic terkonversi) dan 'by Zen' selesai dibangun!")
